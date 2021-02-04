@@ -1,18 +1,17 @@
 name: Publish openapi document
 
-on: create
+on: [create, workflow_dispatch]
 
 jobs:
   redoc:
     name: render redoc html
+    container: swaggerapi/swagger-codegen-cli
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Swagger Codegen
-        uses: bjerkio/swagger-codegen-action@v1
-        with:
-          args: generate -i ./openapi.yaml -o ./docs/
+        run: swagger-codegen generate -i ./openapi.yaml -l html -o ./docs/
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
