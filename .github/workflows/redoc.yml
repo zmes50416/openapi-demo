@@ -1,6 +1,6 @@
 name: Publish openapi document
 
-on: label
+on: create
 
 jobs:
   redoc:
